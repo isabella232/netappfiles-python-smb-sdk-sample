@@ -25,11 +25,11 @@ from msrestazure.azure_exceptions import CloudError
 from sample_utils import console_output, print_header, resource_exists
 
 SHOULD_CLEANUP = False
-LOCATION = 'eastus'
-RESOURCE_GROUP_NAME = 'anf01-rg'
-VNET_NAME = 'photoscan-vnet'
+LOCATION = 'eastus2'
+RESOURCE_GROUP_NAME = 'anf-smb-test-rg'
+VNET_NAME = 'adVNET'
 SUBNET_NAME = 'anf-sn'
-VNET_RESOURCE_GROUP_NAME = 'photoscan-rg'
+VNET_RESOURCE_GROUP_NAME = 'anf-smb-test-rg'
 ANF_ACCOUNT_NAME = Haikunator().haikunate(delimiter='')
 CAPACITYPOOL_NAME = "Pool01"
 CAPACITYPOOL_SERVICE_LEVEL = "Standard"
@@ -39,9 +39,9 @@ VOLUME_USAGE_QUOTA = 107374182400  # 100GiB
 
 # SMB related variables
 DOMAIN_JOIN_USERNAME = 'pmcadmin'
-DNS_LIST = '10.0.2.4,10.0.2.5' # Please notice that this is a comma-separated string
-AD_FQDN = 'testdomain.local'
-SMB_SERVERNAME_PREFIX = 'pmcsmb' # this needs to be maximum 10 characters in length and during the domain join process a random string gets appended.
+DNS_LIST = '10.0.0.4' # Please notice that this is a comma-separated string
+AD_FQDN = 'anf.local'
+SMB_SERVERNAME_PREFIX = 'pmc01' # this needs to be maximum 10 characters in length and during the domain join process a random string gets appended.
 
 # Resource SDK related (change only if API version is not supported anymore)
 VIRTUAL_NETWORKS_SUBNET_API_VERSION = '2018-11-01'
@@ -291,6 +291,9 @@ def run_example():
                                LOCATION)
         console_output(
             '\tVolume successfully created, resource id: {}'.format(volume.id))
+        console_output(
+            '\t====> SMB Server FQDN: {}'
+            .format(volume.mount_targets[0]["smbServerFQDN"]))
     except CloudError as ex:
         console_output(
             'An error ocurred. Error details: {}'.format(ex.message))

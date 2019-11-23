@@ -71,7 +71,7 @@ If you don't already have a Microsoft Azure subscription, you can get a FREE tri
 
 # What is example.py doing? 
 
-This sample is dedicated to demonstrate how to deploy a Volume in Azure NetApp Files that uses SMB protocol, similar to other ANF SDK examples, the authentication method is based on a service principal, this project then will ask for the Active Directory user password and after validating that it is not null, it will create a single volume with a single capacity pool using standard service level tier and finally the SMB Volume.
+This sample is dedicated to demonstrate how to deploy a Volume in Azure NetApp Files that uses SMB protocol, similar to other ANF SDK examples, the authentication method is based on a service principal, this project then will ask for the Active Directory user password and after validating that it is not null, it will create a single volume with a single capacity pool using standard service level tier and finally the SMB Volume. It also implements a function to test if the subnet exists before start creating any resources, called `resource_exists`.
 
 There is a section in the code dedicated to remove created resources, by default this script will not remove all created resources, this behavior is controlled by a variable called `SHOULD_CLEANUP`, if you want cleanup right after the creation operations, just set it to `True`. For a more advanced python example, please see the first item in the references section of this document.
 
@@ -122,5 +122,4 @@ Sample output<a name="SampleOutput"></a>
 - [Resource limits for Azure NetApp Files](https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-resource-limits)
 - [Azure Cloud Shell](https://docs.microsoft.com/en-us/azure/cloud-shell/quickstart)
 - [Azure NetApp Files documentation](https://docs.microsoft.com/en-us/azure/azure-netapp-files/)
-- [Download Azure SDKs](https://azure.microsoft.com/downloads/) 
- 
+- [Download Azure SDKs](https://azure.microsoft.com/downloads/)
