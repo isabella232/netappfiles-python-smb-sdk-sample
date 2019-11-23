@@ -290,7 +290,8 @@ def run_example():
                                SUBNET_ID,
                                LOCATION)
         console_output(
-            '\tVolume successfully created, resource id: {}'.format(volume.id))
+            '\tVolume successfully created, resource id: {}'
+            .format(volume.id))
         console_output(
             '\t====> SMB Server FQDN: {}'
             .format(volume.mount_targets[0]["smbServerFQDN"]))
