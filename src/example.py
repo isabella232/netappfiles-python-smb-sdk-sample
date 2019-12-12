@@ -24,6 +24,7 @@ from getpass import getpass
 from msrestazure.azure_exceptions import CloudError
 from sample_utils import console_output, print_header, resource_exists
 
+# Variables to be changed to be in accordance to the environment where this sample will be executed
 SHOULD_CLEANUP = False
 LOCATION = 'eastus2'
 RESOURCE_GROUP_NAME = 'anf-smb-test-rg'
@@ -79,7 +80,7 @@ def create_account(client, resource_group_name, anf_account_name, location,
                                             anf_account_name).result()
 
 
-def create_capacitypool_async(client, resource_group_name, anf_account_name,
+def create_capacitypool(client, resource_group_name, anf_account_name,
                               capacitypool_name, service_level, size, location,
                               tags=None):
     capacitypool_body = CapacityPool(
@@ -193,9 +194,8 @@ def run_example():
     anf_client = AzureNetAppFilesManagementClient(
         credentials, subscription_id)
 
-    resources_client = ResourceManagementClient(credentials, subscription_id)
-
     # Checking if vnet/subnet information leads to a valid resource
+    resources_client = ResourceManagementClient(credentials, subscription_id)
     SUBNET_ID = '/subscriptions/{}/resourceGroups/{}/providers/Microsoft.Network/virtualNetworks/{}/subnets/{}'.format(
         subscription_id, VNET_RESOURCE_GROUP_NAME, VNET_NAME, SUBNET_NAME)
 
@@ -245,7 +245,7 @@ def run_example():
     console_output('Creating Capacity Pool ...')
     capacity_pool = None
     try:
-        capacity_pool = create_capacitypool_async(anf_client,
+        capacity_pool = create_capacitypool(anf_client,
                                                   RESOURCE_GROUP_NAME,
                                                   account.name,
                                                   CAPACITYPOOL_NAME,
